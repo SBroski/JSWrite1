@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>Hello Agol</title>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="description" content=""/>
 
@@ -17,6 +17,19 @@
     <script type="module" src="https://js.arcgis.com/map-components/4.31/arcgis-map-components.esm.js"></script>
 
     <!-- The esriConfig variable must be defined before adding the other esri libraries -->
+
+    <style>
+      html,
+      body,
+      arcgis-map {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+
     <script>
       require([
         "esri/config",
@@ -65,16 +78,7 @@
       });
     </script>
 
-    <style>
-      html,
-      body,
-      arcgis-map {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
+    
   </head>
 
   <body>
