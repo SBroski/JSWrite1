@@ -5,10 +5,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="description" content=""/>
 
-    <!-- Load Calcite components from CDN -->
-    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/2.13.2/calcite.css" />
-    <script type="module" src="https://js.arcgis.com/calcite-components/2.13.2/calcite.esm.js"></script>
-    
+        
     <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.31/"></script>
@@ -17,18 +14,6 @@
     <script type="module" src="https://js.arcgis.com/map-components/4.31/arcgis-map-components.esm.js"></script>
 
     <!-- The esriConfig variable must be defined before adding the other esri libraries -->
-
-    <style>
-      html,
-      body,
-      arcgis-map {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
-
 
     <script>
       require([
@@ -41,7 +26,7 @@
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIJy2ffaU0HwxWGngt1_FiP8KWN65-qoRbzhTQH5hZIhkXx9O8tyCUaATN9VpAuYRYxlh0MM7HUH1mS8kdoGTXQ__Zej1ZI46pbJv9ZKgYINCp3qLfmpRrPS6MDC1wfymOGOtlgcWeiU2ONyVymZ8isVvDHJhEwY18MCtHl7lS6ww1vMvKPe5qUpxL9uoShJk1I.AT1_DpRducJ3";
 
         const map = new Map({
-          basemap: "arcgis/topographic"
+          basemap: "arcgis/topographic" //basemap layer
         });
 
         const view = new MapView({
@@ -76,8 +61,19 @@
 
         graphicsLayer.add(pointGraphic);
       });
+
     </script>
 
+    <style>
+      html,
+      body,
+      arcgis-map {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
     
   </head>
 
