@@ -51,6 +51,15 @@
             width: 1
           }
         };
+       const popupTemplate = {
+         title: "{Name}",
+         content: "{Description}"
+        };
+
+       const attributes = {
+         Name: "Stevie Ray Vaughan Statue",
+         Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick" 
+         };
 
         const pointGraphic = new Graphic({
           geometry: point,
@@ -58,17 +67,8 @@
           attributes: attributes,
           popupTemplate: popupTemplate // add attributes to the graphic
         });
-        
-        const popupTemplate = {
-         title: "{Name}",
-         content: "{Description}"
-        }
-       const attributes = {
-         Name: "Stevie Ray Vaughan Statue",
-         Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick" 
-         }
 
-       // adding the points to the map
+         // adding the points to the map
         graphicsLayer.add(pointGraphic);
 
       });
