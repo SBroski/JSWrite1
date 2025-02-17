@@ -5,25 +5,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="description" content=""/>
 
-    <style>
-      html,
-      body,
-      #viewDiv {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
-
-    <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
-    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
-    <script src="https://js.arcgis.com/4.31/"></script>
-
-    <!-- Load Map components from CDN-->
-    <script type="module" src="https://js.arcgis.com/map-components/4.31/arcgis-map-components.esm.js"></script>
-
+    <!-- calls for the argis api CSS file and JS library-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.21/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.21/"></script>
     <!-- The esriConfig variable must be defined before adding the other esri libraries -->
+    
     <script>
       require([
         "esri/config",
@@ -39,9 +25,9 @@
         });
 
         const view = new MapView({
-          container: "viewDiv",
           map: map,
           center: [-97.7431, 30.2672],
+          container: "viewDiv",
           zoom: 13
         });
 
@@ -80,6 +66,18 @@
   </head>
 
   <body>
+
+    style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style> 
+
     <div id="viewDiv"></div>
   </body>
 </html>
