@@ -5,7 +5,6 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="description" content=""/>
 
-        
     <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.31/"></script>
@@ -14,7 +13,6 @@
     <script type="module" src="https://js.arcgis.com/map-components/4.31/arcgis-map-components.esm.js"></script>
 
     <!-- The esriConfig variable must be defined before adding the other esri libraries -->
-
     <script>
       require([
         "esri/config",
@@ -26,14 +24,14 @@
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIJy2ffaU0HwxWGngt1_FiP8KWN65-qoRbzhTQH5hZIhkXx9O8tyCUaATN9VpAuYRYxlh0MM7HUH1mS8kdoGTXQ__Zej1ZI46pbJv9ZKgYINCp3qLfmpRrPS6MDC1wfymOGOtlgcWeiU2ONyVymZ8isVvDHJhEwY18MCtHl7lS6ww1vMvKPe5qUpxL9uoShJk1I.AT1_DpRducJ3";
 
         const map = new Map({
-          basemap: "arcgis/topographic" //basemap layer
+          basemap: "arcgis/topographic" // basemap layer
         });
 
         const view = new MapView({
+          container: "viewDiv",
           map: map,
           center: [-97.7431, 30.2672],
-          zoom: 13,
-          container: "viewDiv"
+          zoom: 13
         });
 
         const graphicsLayer = new GraphicsLayer();
@@ -60,21 +58,25 @@
         });
 
         graphicsLayer.add(pointGraphic);
-      });
 
+        // Debugging logs
+        console.log("Map initialized:", map);
+        console.log("View initialized:", view);
+        console.log("GraphicsLayer added:", graphicsLayer);
+        console.log("Point added:", pointGraphic);
+      });
     </script>
 
     <style>
       html,
       body,
-      arcgis-map {
+      #viewDiv {
         padding: 0;
         margin: 0;
         height: 100%;
         width: 100%;
       }
     </style>
-    
   </head>
 
   <body>
