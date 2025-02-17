@@ -70,6 +70,30 @@
 
          // adding the points to the map
         graphicsLayer.add(pointGraphic);
+    
+    // Define the polygon geometry
+    const polygon = {
+          type: "polygon",
+          rings: [
+            [-97.750689, 30.263098],
+            [-97.751689, 30.263098],
+            [-97.751689, 30.264098],
+            [-97.750689, 30.264098],
+            [-97.750689, 30.263098]
+          ]
+        };
+
+    // Symbol for the polygon
+        const simpleFillSymbol = {
+          type: "simple-fill",
+          color: [0, 225, 79, 0.8], 
+          outline: {
+            color: [255, 255, 255],
+            width: 1
+          }
+        };
+
+
 
       });
     </script>
