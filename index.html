@@ -3,105 +3,82 @@
     <title>Hello Agol</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="description" content""/>
+    <meta name="description" content=""/>
 
-    
-  
     <!-- Load Calcite components from CDN -->
     <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/2.13.2/calcite.css" />
-        <script type="module" src="https://js.arcgis.com/calcite-components/2.13.2/calcite.esm.js"> </script>
+    <script type="module" src="https://js.arcgis.com/calcite-components/2.13.2/calcite.esm.js"></script>
+    
     <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
-        <script src="https://js.arcgis.com/4.31/"></script>
+    <script src="https://js.arcgis.com/4.31/"></script>
 
     <!-- Load Map components from CDN-->
-      <script
-      type="module"
-      src="https://js.arcgis.com/map-components/4.31/arcgis-map-components.esm.js"
-    > </script>
+    <script type="module" src="https://js.arcgis.com/map-components/4.31/arcgis-map-components.esm.js"></script>
 
-      <!-- The esriConfig variable must be defined before adding the other esri libraries -->
-     
-     <script>
-      //adding the necessary graphic layers
-      require([  
-        "esri/config",  
-        "esri/Map",  
+    <!-- The esriConfig variable must be defined before adding the other esri libraries -->
+    <script>
+      require([
+        "esri/config",
+        "esri/Map",
         "esri/views/MapView",
+        "esri/Graphic",
+        "esri/layers/GraphicsLayer"
+      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer) {
+        esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIJy2ffaU0HwxWGngt1_FiP8KWN65-qoRbzhTQH5hZIhkXx9O8tyCUaATN9VpAuYRYxlh0MM7HUH1mS8kdoGTXQ__Zej1ZI46pbJv9ZKgYINCp3qLfmpRrPS6MDC1wfymOGOtlgcWeiU2ONyVymZ8isVvDHJhEwY18MCtHl7lS6ww1vMvKPe5qUpxL9uoShJk1I.AT1_DpRducJ3";
 
-         "esri/Graphic",  
-         "esri/layers/GraphicsLayer"   
-         //arguments into function
-], function(esriConfig,Map, MapView, Graphic, GraphicsLayer) {
+        const map = new Map({
+          basemap: "arcgis/topographic"
+        });
 
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-118.805, 34.027],
+          zoom: 13
+        });
 
-     var esriConfig = {
-      apiKey: "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIJy2ffaU0HwxWGngt1_FiP8KWN65-qoRbzhTQH5hZIhkXx9O8tyCUaATN9VpAuYRYxlh0MM7HUH1mS8kdoGTXQ__Zej1ZI46pbJv9ZKgYINCp3qLfmpRrPS6MDC1wfymOGOtlgcWeiU2ONyVymZ8isVvDHJhEwY18MCtHl7lS6ww1vMvKPe5qUpxL9uoShJk1I.AT1_DpRducJ3"
-     };
+        const graphicsLayer = new GraphicsLayer();
+        map.add(graphicsLayer);
 
-     <arcgis-map 
-      basemap="arcgis/topographic" 
-       center="-118.805, 34.027" 
-       zoom="13">
-    <arcgis-zoom 
-      position="top-left">
-    </arcgis-zoom>
-    </arcgis-map>
+        const point = {
+          type: "point",
+          longitude: -97.750689,
+          latitude: 30.263098
+        };
 
-    
-     //adding constructor for graphics layer
-     const graphicsLayer = new GraphicsLayer();  
-     map.add(graphicsLayer);
+        const simpleMarkerSymbol = {
+          type: "simple-marker",
+          color: [0, 0, 139],
+          outline: {
+            color: [255, 255, 255],
+            width: 1
+          }
+        };
 
-     const point = { //Create a point  
-      type: "point",  
-      longitude: -97.750689,    //long lat of Stevie Ray Vaughan Statue
-      latitude: 30.263098
-     }
+        const pointGraphic = new Graphic({
+          geometry: point,
+          symbol: simpleMarkerSymbol
+        });
 
-    const simpleMarkerSymbol = {  
-       type: "simple-marker",  
-       color: [0, 0, 139],  // Color of blues rock
-       outline: {  
-       color: [255, 255, 255], // White  
-       width: 1
-};
-};
-  const pointGraphic = new Graphic({  
-    geometry: point,  
-    symbol: simpleMarkerSymbol  
-});
-  graphicsLayer.add(pointGraphic); //adding points graphic
+        graphicsLayer.add(pointGraphic);
+      });
+    </script>
 
-    }
-      </script>
-
-
-      <style>
-        html,
-        body,
-        arcgis-map {
-          padding: 0;
-          margin: 0;
-          height: 100%;
-          width: 100%;
-        }
-      </style>
-
+    <style>
+      html,
+      body,
+      arcgis-map {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
   </head>
 
   <body>
-
-    <arcgis-map 
-      basemap="arcgis/topographic" 
-       center="-118.805, 34.027" 
-       zoom="13">
-    <arcgis-zoom 
-      position="top-left">
-    </arcgis-zoom>
-    </arcgis-map>
-
+    <div id="viewDiv" style="height: 100%; width: 100%;"></div>
   </body>
-
 </html>
 
