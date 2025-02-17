@@ -42,13 +42,6 @@
           latitude: 30.263098
         };
 
-      const popupTemplate = {
-         title: "{Stevie Ray Vaughan Statue}",
-         content: "{A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick}"
- }
-      const attributes = {
-         Name: "Stevie Ray Vaughan Statue",
-         Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick"
  }
 
         const simpleMarkerSymbol = {
@@ -61,6 +54,14 @@
           }
         };
 
+       const popupTemplate = {
+         title: "{Stevie Ray Vaughan Statue}",
+         content: "{A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick}"
+ }
+       const attributes = {
+         Name: "Stevie Ray Vaughan Statue",
+         Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick" 
+       };
         const pointGraphic = new Graphic({
           geometry: point,
           symbol: simpleMarkerSymbol,
