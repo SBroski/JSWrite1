@@ -92,7 +92,7 @@
             width: 1
           }
         };
-        
+
         const polygonGraphic = new Graphic({
           geometry: polygon,
           symbol: simpleFillSymbol
@@ -100,6 +100,33 @@
 
         // Add the polygon graphic to the graphics layer
         graphicsLayer.add(polygonGraphic);
+
+        const polyline = {
+          type: "polyline",
+          paths: [
+            [-97.750689, 30.263098],
+            [-97.751689, 30.263098],
+            [-97.751689, 30.264098],
+            [-97.750689, 30.264098]
+          ]
+        };
+
+        // Symbol for the polyline
+        const simpleLineSymbol = {
+          type: "simple-line",
+          color: [226, 119, 40], // orange
+          width: 2
+        };
+
+        // Create a graphic for the polyline
+        const polylineGraphic = new Graphic({
+          geometry: polyline,
+          symbol: simpleLineSymbol
+        });
+
+        // Add the polyline graphic to the graphics layer
+        graphicsLayer.add(polylineGraphic);
+
 
       });
     </script>
