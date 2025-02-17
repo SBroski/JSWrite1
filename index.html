@@ -5,6 +5,17 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="description" content=""/>
 
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
     <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.31/"></script>
@@ -66,24 +77,10 @@
         console.log("Point added:", pointGraphic);
       });
     </script>
-
-    <style>
-      html,
-      body,
-      #viewDiv {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        width: 100%;
-      }
-    </style>
   </head>
 
   <body>
-    <arcgis-map basemap="arcgis/topographic" center="-97.7431, 30.2672" zoom="13">
-
-    </arcgis-map>
-
+    <div id="viewDiv"></div>
   </body>
 </html>
 
