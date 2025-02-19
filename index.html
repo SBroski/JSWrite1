@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title> Hello Agol2 </title>
+    <title>Hello Agol2</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="description" content=""/>
@@ -16,38 +16,33 @@
         "esri/config",
         "esri/Map",
         "esri/views/MapView",
-        "esri/Graphic",                          // adding in the module for graphic layer
+        "esri/Graphic",
         "esri/layers/GraphicsLayer",
-        "esri/layers/FeatureLayer"              // adding in the modules for feature layer
-        
-
-
-       ],
-       
-      function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+        "esri/layers/FeatureLayer"
+      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaILaRAoC3mKmrNlR59hcjQUZWFf0g4MArkzy4bom067FzrlyfpaDiMN0XQ7B91f03B1h3VkC9JEo5iD4BFPo9jJIXOxcf-Sv1EXsQGRUlgbCzFI4nZfaHN-vCZDj3Lq2GKoZMRsiKkS5hO7Hr7kNczKdo8XFTd5-o5PIU7kJGCYpJfec8b65WrzyXcQ48ptxndM.AT1_dzsZxv0y";
 
         const map = new Map({
-          basemap: "topo" // basemap layer
+          basemap: "topo-vector" // basemap layer
         });
 
-      const view = new MapView({
+        const view = new MapView({
           map: map,
           center: [-97.7431, 30.2672],
           container: "viewDiv",
           zoom: 13
         });
 
-      const graphicsLayer = new GraphicsLayer();
+        const graphicsLayer = new GraphicsLayer();
         map.add(graphicsLayer);
 
-      const point = {
+        const point = {
           type: "point",
           longitude: -97.750689,
           latitude: 30.263098
         };
 
-         const simpleMarkerSymbol = {
+        const simpleMarkerSymbol = {
           type: "simple-marker",
           style: "triangle",
           color: [0, 0, 139],
@@ -56,15 +51,16 @@
             width: 1
           }
         };
-       const popupTemplate = {
-         title: "{Name}",
-         content: "{Description}"
+
+        const popupTemplate = {
+          title: "{Name}",
+          content: "{Description}"
         };
 
-       const attributes = {
-         Name: "Stevie Ray Vaughan Statue",
-         Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick" 
-         };
+        const attributes = {
+          Name: "Stevie Ray Vaughan Statue",
+          Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick"
+        };
 
         const pointGraphic = new Graphic({
           geometry: point,
@@ -73,11 +69,11 @@
           popupTemplate: popupTemplate // add attributes to the graphic
         });
 
-         // adding the points to the map
+        // adding the points to the map
         graphicsLayer.add(pointGraphic);
-    
-    // Define the polygon geometry
-    const polygon = {
+
+        // Define the polygon geometry
+        const polygon = {
           type: "polygon",
           rings: [
             [-97.750689, 30.263098],
@@ -88,7 +84,7 @@
           ]
         };
 
-    // Symbol for the polygon
+        // Symbol for the polygon
         const simpleFillSymbol = {
           type: "simple-fill",
           color: [0, 225, 79, 0.8], 
@@ -106,10 +102,11 @@
         // Add the polygon graphic to the graphics layer
         graphicsLayer.add(polygonGraphic);
 
+        // Define the polyline geometry
         const polyline = {
           type: "polyline",
           paths: [
-            [-97.749771,30.262804],
+            [-97.749771, 30.262804],
             [-97.750689, 30.263098],
             [-97.751689, 30.264098],
             [-97.750689, 30.264098]
@@ -132,15 +129,14 @@
         // Add the polyline graphic to the graphics layer
         graphicsLayer.add(polylineGraphic);
 
-       // adding layer for the URL for the feature layer
-
+        // adding layer for the URL for the feature layer
         const usaeduLayer = new FeatureLayer({
-          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer"      
-          });  //url from AGOL WEBSITE
+          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer"
+        });  //url from AGOL WEBSITE
 
-        FeatureLayer.add(usaeduLayer);
+        map.add(usaeduLayer);
 
-      });
+              });
     </script>
   </head>
 
