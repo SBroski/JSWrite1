@@ -17,9 +17,12 @@
         "esri/Map",
         "esri/views/MapView",
         "esri/Graphic",
-        "esri/layers/GraphicsLayer"
+        "esri/layers/GraphicsLayer",
+        "esri/Graphic",               // adding in the modules for the graphic and graphic layer
+        "esri/layers/GraphicsLayer",
 
-      ],function(esriConfig, Map, MapView, Graphic, GraphicsLayer) {
+
+      ],function(esriConfig, Map, MapView, Graphic, GraphicsLayer,FeatureLayer) {
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaILaRAoC3mKmrNlR59hcjQUZWFf0g4MArkzy4bom067FzrlyfpaDiMN0XQ7B91f03B1h3VkC9JEo5iD4BFPo9jJIXOxcf-Sv1EXsQGRUlgbCzFI4nZfaHN-vCZDj3Lq2GKoZMRsiKkS5hO7Hr7kNczKdo8XFTd5-o5PIU7kJGCYpJfec8b65WrzyXcQ48ptxndM.AT1_dzsZxv0y";
 
         const map = new Map({
@@ -127,6 +130,13 @@
         // Add the polyline graphic to the graphics layer
         graphicsLayer.add(polylineGraphic);
 
+       // adding layer for the URL for the feature layer
+
+        const usaeduLayer = new FeatureLayer({
+          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Underground_Natural_Gas_Storage/FeatureServer"
+        });
+
+        map.add(usaeduLayer);
 
       });
     </script>
