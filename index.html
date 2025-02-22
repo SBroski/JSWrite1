@@ -18,9 +18,10 @@
         "esri/views/MapView",
         "esri/Graphic",
         "esri/layers/GraphicsLayer",
-        "esri/layers/featureLayer"
-      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, featureLayer) {
-        esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIIi3IXKSAtkibIBMvi9jHxhHvPHCZa6N4xYfFoOEi78qgMywaRxeyVvI1Pz_78100xHYQok0FWPMtiG11U13TasCx7WXo9KXA-fcdY4m-5KHDJwA1Y708w2ozyvy8mJXILDv4ppEgc-_f3LIN8A7V8MEONoJX1o1iQ91-dmwsurQCX6QdJ5U9JAUmin7JnL7Aw.AT1_Stq55Mfi"
+        "esri/layers/FeatureLayer"
+      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+        esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIIi3IXKSAtkibIBMvi9jHxhHvPHCZa6N4xYfFoOEi78qgMywaRxeyVvI1Pz_78100xHYQok0FWPMtiG11U13TasCx7WXo9KXA-fcdY4m-5KHDJwA1Y708w2ozyvy8mJXILDv4ppEgc-_f3LIN8A7V8MEONoJX1o1iQ91-dmwsurQCX6QdJ5U9JAUmin7JnL7Aw.AT1_Stq55Mfi";
+
         const map = new Map({
           basemap: "topo" // basemap layer
         });
@@ -129,21 +130,17 @@
         graphicsLayer.add(polylineGraphic);
 
         // Define a pop-up for usaeduLayer
-      const popupEduusa = {
-        "title": "EDUs",
-          "content": "<b>Name:</b> {NAME}<br><b>Total Enrollment:</b> {TOT_ENROLL}<br>"
-      }
+        const popupEduusa = {
+          title: "EDUs",
+          content: "<b>Name:</b> {NAME}<br><b>Total Enrollment:</b> {TOT_ENROLL}<br>"
+        };
 
-        //adding the popup here
-          outFields: ["NAME","TOT_ENROLL"],
-          popupTemplate; popupEduusa
-          });
-
-        
-        // adding layer for the URL for the feature layer
-          const usaeduLayer = new FeatureLayer({
-          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer"
-        });  //url from AGOL WEBSITE
+        // Adding the feature layer
+        const usaeduLayer = new FeatureLayer({
+          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+          outFields: ["NAME", "TOT_ENROLL"],
+          popupTemplate: popupEduusa
+        });
 
         map.add(usaeduLayer);
 
@@ -159,7 +156,7 @@
         }, (error) => {
           console.error("Error loading the map: ", error);
         });
-     
+      });
     </script>
   </head>
 
