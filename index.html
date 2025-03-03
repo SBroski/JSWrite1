@@ -19,9 +19,10 @@
         "esri/views/MapView",
         "esri/Graphic",
         "esri/layers/GraphicsLayer",
-        "esri/layers/FeatureLayer"        
+        "esri/layers/FeatureLayer",
+        "esri/renderers/UniqueValueRenderer"        
 
-      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer, UniqueValueRenderer) {
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIIi3IXKSAtkibIBMvi9jHxhHvPHCZa6N4xYfFoOEi78qgMywaRxeyVvI1Pz_78100xHYQok0FWPMtiG11U13TasCx7WXo9KXA-fcdY4m-5KHDJwA1Y708w2ozyvy8mJXILDv4ppEgc-_f3LIN8A7V8MEONoJX1o1iQ91-dmwsurQCX6QdJ5U9JAUmin7JnL7Aw.AT1_Stq55Mfi";
 
         const map = new Map({
@@ -152,17 +153,32 @@
 //adding the airports layer to the map      
         map.add(airportsLayer);
 
-//creates render for the icon airpot layer
-       
-const airportRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://sounny.github.io/agol/outline_local_airport_black_24dp.png",
-          "width": "18px",
-          "height": "18px"
+// creates render for the icon airpot layer
+// code made with assistance AVA from this Class!!!
+const airportRenderer = new UniqueValueRenderer({
+      field: "Fac_Type",
+      uniqueValueInfos: [
+        {
+          value: "AIRPORT",
+          symbol: {
+            type: "picture-marker",
+            url: "outline_local_airport_black_24dp.png",
+            width: "18px",
+            height: "18px"
+          }
+        },
+        {
+          value: "HELIPORT",
+          symbol: {
+            type: "picture-marker",
+            url: "paragliding_24dp_5F6368.svg",
+            width: "18px",
+            height: "18px"
+          }
         }
-      }
+      ]
+    })
+
     
 
 const popupUSAP = {
@@ -190,12 +206,14 @@ const airportLabels = {
             expression: "$feature.Fac_Name"}
         };
       
-//should filter out all non airports, such as hospitals
+      
+      //should filter out all non airports, such as hospitals
 const airportLayer = new FeatureLayer({
     url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
     renderer: airportRenderer, //calling the icon
 
-    definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+    definitionExpression: "Fac_Type = 'AIRPORT' OR Fac_Type = 'HELIPORT'", //adding sql to filter for airports
+    
     labelingInfo: [airportLabels],
     popupTemplate: popupUSAP
   });
@@ -205,24 +223,7 @@ map.add(airportLayer);
           
   
 
-  //helicopter icon, not a helocopter as they did not have one, paraglider is the closest
-           const helicopterRenderer = {
-          type: "simple",
-          symbol: {
-            type: "picture-marker",
-            url: "outline_paragliding_black_24dp.png",
-            width: "18px",
-            height: "18px"
-          }
-        };
-      const helicopterLayer = new FeatureLayer({
-          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
-          renderer: helicopterRenderer, //calling the icon
-          definitionExpression: "Fac_Type = 'HELIPORT'", //adding sql to filter for airport
-        });
-        
 
-        map.add(helicopterLayer);
 
  
 
