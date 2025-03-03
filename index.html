@@ -3,7 +3,7 @@
   <head>
     <title>Hello Agol2</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content=""/>
 
     <!-- calls for the argis api CSS file and JS library-->
@@ -19,19 +19,23 @@
         "esri/views/MapView",
         "esri/Graphic",
         "esri/layers/GraphicsLayer",
-        "esri/layers/FeatureLayer"
-      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+        "esri/layers/FeatureLayer",
+        "esri/renderers/UniqueValueRenderer",
+        "esri/widgets/Legend",
+        "esri/widgets/Editor"
+
+      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Polygon, Polyline, UniqueValueRenderer, Legend, Editor) {
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIIi3IXKSAtkibIBMvi9jHxhHvPHCZa6N4xYfFoOEi78qgMywaRxeyVvI1Pz_78100xHYQok0FWPMtiG11U13TasCx7WXo9KXA-fcdY4m-5KHDJwA1Y708w2ozyvy8mJXILDv4ppEgc-_f3LIN8A7V8MEONoJX1o1iQ91-dmwsurQCX6QdJ5U9JAUmin7JnL7Aw.AT1_Stq55Mfi";
 
         const map = new Map({
-          basemap: "topo-vector" // basemap layer
+          basemap: "arcgis-topographic" // basemap layer
         });
 
         const view = new MapView({
           map: map,
           center: [-97.7431, 30.2672],
-          container: "viewDiv",
-          zoom: 13
+          zoom: 13,
+          container: "viewDiv"          
         });
 
         const graphicsLayer = new GraphicsLayer();
@@ -152,19 +156,23 @@
         map.add(airportsLayer);
 
 //creates render for the icon airpot layer
-        const airportRenderer = {
-          type: "simple",
-          symbol: {
-            type: "picture-marker",
-            url: "outline_local_airport_black_24dp.png",
-            width: "18px",
-            height: "18px"
-          }
-        };
+        const airportRenderer = new UniqueValueRenderer({
+          field: "Fac_Type",
+          uniqueValueInfos: [
+            {
+              value: "AIRPORT",
+              symbol: {
+                type: "picture-marker",
+                url: "outline_local_airport_black_24dp.png",
+                width: "18px",
+                height: "18px"
+              }
+                }
+              ]
+            });
+            
+          
      
-//should filter out all non airports, such as hospitals
-  
-
       //const to make the airport labels
       const airportLabels = {
           symbol: {
@@ -180,37 +188,21 @@
         }
       },
           labelPlacement: "above-center",
-          // removed labelExpressionInfo: {expression: "$feature.Fac_Name"}
+          labelExpressionInfo: {
+            expression: "$feature.Fac_Name"}
         };
 
 //should filter out all non airports, such as hospitals
         const airportLayer = new FeatureLayer({
-          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
+          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStatesAirports/FeatureServer",
           renderer: airportRenderer, //calling the icon
-          //definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
-          //labelingInfo: [airportLabels] //adding the labels
+          definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+          labelingInfo: [airportLabels] //adding the labels
         });
         
 
         map.add(airportLayer);
-   //helicopter icon, not a helocopter as they did not have one, paraglider is the closest
-           const helicopterRenderer = {
-          type: "simple",
-          symbol: {
-            type: "picture-marker",
-            url: "outline_paragliding_black_24dp.png",
-            width: "18px",
-            height: "18px"
-          }
-        };
-      const helicopterLayer = new FeatureLayer({
-          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
-          renderer: helicopterRenderer, //calling the icon
-          definitionExpression: "Fac_Type = 'HELIPORT'", //adding sql to filter for airport
-        });
-        
-
-        map.add(helicopterLayer);
+ 
 
 
 
