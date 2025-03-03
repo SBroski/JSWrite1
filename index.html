@@ -164,27 +164,15 @@ const airportRenderer = {
         }
       }
     
-//should filter out all non airports, such as hospitals
-const airportLayer = new FeatureLayer({
-    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
-    renderer: airportRenderer, //calling the icon
 
-    definitionExpression: "Fac_Type = 'AIRPORT'" //adding sql to filter for airports
-});
-    
-//labelingInfo: [airportLabels],
-//popupTemplate: popupUSAP
+const popupUSAP = {
+"title": "Airports",
+"content": "<b>Name:</b> {Fac_Name}<br><b>Type:</b> {Fac_Type}<br><b>Airspace:</b> {Airspace_A}<br><b>Location ID:</b> {Loc_Id}"
+}
+ 
 
-//const popupUSAP = {
-// "title": "Airports",
-//"content": "<b>Name:</b> {Fac_Name}<br><b>Type:</b> {Fac_Type}<br><b>Airspace:</b> {Airspace_A}<br><b>Location ID:</b> {Loc_Id}"
-//}      
-
-map.add(airportLayer);
-          
-     
-      //const to make the airport labels
-      const airportLabels = {
+//const to make the airport labels
+const airportLabels = {
           symbol: {
           type: "text",
           color: "#FFFFFF",
@@ -201,7 +189,21 @@ map.add(airportLayer);
           labelExpressionInfo: {
             expression: "$feature.Fac_Name"}
         };
+      
+//should filter out all non airports, such as hospitals
+const airportLayer = new FeatureLayer({
+    url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports/FeatureServer",
+    renderer: airportRenderer, //calling the icon
 
+    definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+    labelingInfo: [airportLabels],
+    popupTemplate: popupUSAP
+  });
+      
+
+map.add(airportLayer);
+          
+  
  
 
 
