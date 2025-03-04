@@ -21,9 +21,9 @@
         "esri/layers/GraphicsLayer",
         "esri/layers/FeatureLayer",
         "esri/renderers/UniqueValueRenderer",
-        "esri/widgets/Editor"        //simplifies editing of features
-
-      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer, UniqueValueRenderer, Editor) {
+        "esri/widgets/Editor",       //simplifies editing of features
+        "esri/widgets/Legend"        //displays a legend for layers in a view
+      ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer, FeatureLayer, UniqueValueRenderer, Editor, Legend) {
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurHV9iTjyehHsEnzvI8sUaIIi3IXKSAtkibIBMvi9jHxhHvPHCZa6N4xYfFoOEi78qgMywaRxeyVvI1Pz_78100xHYQok0FWPMtiG11U13TasCx7WXo9KXA-fcdY4m-5KHDJwA1Y708w2ozyvy8mJXILDv4ppEgc-_f3LIN8A7V8MEONoJX1o1iQ91-dmwsurQCX6QdJ5U9JAUmin7JnL7Aw.AT1_Stq55Mfi";
 
         const map = new Map({
@@ -222,14 +222,51 @@ const airportLayer = new FeatureLayer({
 
 map.add(airportLayer);
           
+//changing icon for myairport layer
+
+const myAirportRenderer = new UniqueValueRenderer({
+ field: "AirportCode",
+ uniqueValueInfos: [
+  {
+    value: "AUS",
+    symbol: {
+      type: "picture-marker",
+      url: "terrain_24dp_5F6368.png",
+      width: "18px",
+      height: "18px"
+    }
+  }
+ ]
+});
+
+const myAiportsLabels = {
+          symbol: {
+          type: "text",
+          color: "#FFFFFF",
+          haloColor: "#5E8D74",
+          haloSize: "2px",
+          font: {
+          size: "12px",
+         family: "Noto Sans",
+          style: "italic",
+          weight: "normal"
+        }
+      },
+          labelPlacement: "above-center",
+          labelExpressionInfo: {
+            expression: "$feature.AirportCode"}
+        };
   
+
 //adding the const for the feature layer
 const myAirports = new FeatureLayer({
  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/MyairportJSSTACKWRITE/FeatureServer",
  
  //adding the popup here
  outFields: ["AirportCode"], //the empty field
-
+ labelingInfo: [myAiportsLabels], //labels
+ renderer: myAirportRenderer,   // adding the icon
+ legendEnabled: true
 });
 
 //adding the feature layer to the map
@@ -248,11 +285,31 @@ const editor = new Editor({
 
 // Add the widget to the view
 view.ui.add(editor, "top-right");
+
+let legend = new Legend({
+      view: view,
+      layerInfos: [
+        {
+          layer: myAirports,
+          title: "My Airports"
+        },
+        {
+          layer: airportLayer,
+          title: "Airports"
+        },
+        {
+          layer: usaeduLayer,
+          title: "Colleges and Universities"
+        }
+      ]
+     });
+
+  //add the legend to the view
+  view.ui.add(legend, "bottom-right");
  
 
-
-
-      });
+     
+    });
     </script>
   </head>
 
@@ -274,3 +331,4 @@ view.ui.add(editor, "top-right");
 </html>
 
 
+      
